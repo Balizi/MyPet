@@ -2,16 +2,11 @@ package com.example.api.controllers;
 
 import com.example.api.dtos.AnimalDto;
 import com.example.api.dtos.CommentDto;
+import com.example.api.dtos.PostApplyDto;
 import com.example.api.dtos.PublicationDto;
-import com.example.api.model.AnimalEntity;
-import com.example.api.model.CommentEntity;
-import com.example.api.model.PublicationEntity;
-import com.example.api.model.UserEntity;
+import com.example.api.model.*;
 import com.example.api.security.SecurityConstants;
-import com.example.api.services.AnimalService;
-import com.example.api.services.CommentService;
-import com.example.api.services.PublicationService;
-import com.example.api.services.UserService;
+import com.example.api.services.*;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,13 +29,15 @@ public class UserController {
     private final PublicationService publicationService;
     private final UserService userService;
     private final CommentService commentService;
+    private final PostApplyService postApplyService;
 
     @Autowired
-    public UserController(AnimalService animalService, UserService userService, PublicationService publicationService, CommentService commentService) {
+    public UserController(AnimalService animalService, UserService userService, PublicationService publicationService, CommentService commentService, PostApplyService postApplyService) {
         this.animalService = animalService;
         this.userService = userService;
         this.publicationService = publicationService;
         this.commentService = commentService;
+        this.postApplyService = postApplyService;
     }
 
     @PostMapping("create_animal")
@@ -82,6 +79,16 @@ public class UserController {
         return new ResponseEntity<>(publicationDto1,HttpStatus.OK);
     }
 
+    @PostMapping("apply")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<PostApplyDto> createApply(@RequestBody PostApplyDto postApplyDto, HttpServletRequest request){
+        //get user logeed by token from client
+        UserEntity userRequest = getUserByEmail(request);
+        postApplyDto.setUserEntity(userRequest);
+        PostApplyDto postApplyDtoResponse = postApplyService.applyPost(postApplyDto);
+        return new ResponseEntity<>(postApplyDtoResponse,HttpStatus.CREATED);
+    }
+
     @GetMapping("publications")
     public List<PublicationDto> publicationDtos(){
         return publicationService.getAllPublication();
@@ -91,6 +98,7 @@ public class UserController {
     public List<AnimalDto> getAllAnimals(HttpServletRequest request){
         //get user logeed by token from client
         UserEntity userRequest = getUserByEmail(request);
+        System.out.println(animalService.getAllAnimalByUser(userRequest));
         return animalService.getAllAnimalByUser(userRequest);
     }
 

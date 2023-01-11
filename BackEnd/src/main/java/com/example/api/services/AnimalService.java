@@ -14,4 +14,5 @@ public interface AnimalService {
 
     List<AnimalDto> getAllAnimalByUser(UserEntity userEntity);
 
+
 }
