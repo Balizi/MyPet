@@ -48,7 +48,7 @@ export class AnimalComponent {
       this.createAnimalForm.value.description || '', this.createAnimalForm.value.picture || '').subscribe({
         next: (data:any) => {
           console.log(data)
-          this.router.navigate(['/']);
+          this.router.navigate(['/my_animal']);
         },
         error: error=>(alert(error))
       })

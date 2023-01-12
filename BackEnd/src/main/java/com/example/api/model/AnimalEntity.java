@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "animal")
@@ -25,11 +26,12 @@ public class AnimalEntity {
 
     private String description;
 
-
     @Column(columnDefinition="TEXT", length = 2048)
     private String picture;
 
     @ManyToOne
     private UserEntity userEntity;
+
+
 
 }

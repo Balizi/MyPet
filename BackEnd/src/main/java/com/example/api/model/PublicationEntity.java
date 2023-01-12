@@ -1,13 +1,20 @@
 package com.example.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "publication")
-@Data
+@Getter
+@Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class PublicationEntity {
 
     @Id
@@ -28,5 +35,7 @@ public class PublicationEntity {
 
     @OneToMany(mappedBy = "publicationEntity")
     private List<CommentEntity> commentEntities;
+
+
 
 }

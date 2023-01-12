@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { MyanimalComponent } from './myanimal/myanimal.component';
 import { AnimalComponent } from './animal/animal.component';
 import { CreatePublicationComponent } from './create-publication/create-publication.component';
+import { RequestComponent } from './request/request.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CreatePublicationComponent } from './create-publication/create-publicat
     RegisterComponent,
     MyanimalComponent,
     AnimalComponent,
-    CreatePublicationComponent
+    CreatePublicationComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,

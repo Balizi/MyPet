@@ -14,11 +14,12 @@ export class MyanimalComponent {
   }
 
   ngOnInit(): void {
-    // this.publicationsService.getMyAnimal().subscribe({
-    //   next:(data: any) =>{
-    //     this.myAnimal=data;
-    //   }
-    // });
+    this.publicationsService.getMyAnimal().subscribe({
+      next:(data: any) =>{
+        console.log(data)
+        this.myAnimal=data;
+      }
+    });
   }
 
 }

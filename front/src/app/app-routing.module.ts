@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { AnimalComponent } from './animal/animal.component';
 import { MyanimalComponent } from './myanimal/myanimal.component';
 import { CreatePublicationComponent } from './create-publication/create-publication.component';
+import { RequestComponent } from './request/request.component';
 
 const routes: Routes = [
   {path:"", component:PublicationComponent},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path:"register",component:RegisterComponent},
   {path:"create_animal",component:AnimalComponent},
   {path:"my_animal",component:MyanimalComponent},
-  {path:"create_publication",component:CreatePublicationComponent}
+  {path:"create_publication",component:CreatePublicationComponent},
+  {path:"my_request",component:RequestComponent},
 
 ];
 

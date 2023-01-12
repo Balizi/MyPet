@@ -1,6 +1,5 @@
 package com.example.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,7 +19,6 @@ public class CommentEntity {
     private Date createdAt;
 
     @ManyToOne
-    @JsonIgnore
     private PublicationEntity publicationEntity;
 
     @ManyToOne

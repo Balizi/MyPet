@@ -8,23 +8,30 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostApplyServiceImpl implements PostApplyService {
 
     private final PostApplyRepository postApplyRepository;
-
     @Autowired
     public PostApplyServiceImpl(PostApplyRepository postApplyRepository) {
         this.postApplyRepository = postApplyRepository;
     }
 
+
     @Override
-    public PostApplyDto applyPost(PostApplyDto postApplyDtoRequest) {
-        PostApplyEntity postApplyEntity = new PostApplyEntity();
-        BeanUtils.copyProperties(postApplyDtoRequest,postApplyEntity);
-        PostApplyEntity postApplyEntityResult = postApplyRepository.save(postApplyEntity);
+    public PostApplyDto applyToPost(PostApplyDto postApplyDto) {
+        PostApplyEntity postApplyEntityRequest = new PostApplyEntity();
+        BeanUtils.copyProperties(postApplyDto,postApplyEntityRequest);
+        PostApplyEntity postApplyEntityResponse = postApplyRepository.save(postApplyEntityRequest);
         PostApplyDto postApplyDtoResponse = new PostApplyDto();
-        BeanUtils.copyProperties(postApplyEntityResult,postApplyDtoResponse);
+        BeanUtils.copyProperties(postApplyEntityResponse,postApplyDtoResponse);
         return postApplyDtoResponse;
+    }
+
+    @Override
+    public List<PostApplyEntity> postAppl() {
+        return postApplyRepository.findAll();
     }
 }

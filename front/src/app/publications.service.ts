@@ -87,6 +87,15 @@ export class PublicationsService {
     },this.httpOptions)
   }
 
+  applyPost(id:string):Observable<any>{
+    return this.http.post(`${this.baseUrl}/api/user/apply`,{
+      publicationEntity:{
+        id:id
+      }
+    },this.httpOptions)
+  }
+
+
 
 
 }

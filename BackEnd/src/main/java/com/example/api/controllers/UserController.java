@@ -62,7 +62,6 @@ public class UserController {
         return new ResponseEntity<>(commentService.createComment(comment),HttpStatus.CREATED);
     }
 
-
     @PostMapping("create_publication")
     public ResponseEntity<PublicationDto> createPublication(@RequestBody PublicationDto publicationDto,HttpServletRequest request){
         //get user logeed by token from client
@@ -71,22 +70,10 @@ public class UserController {
         AnimalEntity animalEntity = animalService.findById(publicationDto.getIdAnimal());
         publicationDto.setAnimalEntity(animalEntity);
         publicationDto.setUserEntity(userRequest);
-        System.out.println(publicationDto.toString());
         PublicationEntity publication = new PublicationEntity();
         BeanUtils.copyProperties(publicationDto,publication);
-        System.out.println("last : "+publication.toString());
         PublicationDto publicationDto1 = publicationService.createPublication(publicationDto);
         return new ResponseEntity<>(publicationDto1,HttpStatus.OK);
-    }
-
-    @PostMapping("apply")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<PostApplyDto> createApply(@RequestBody PostApplyDto postApplyDto, HttpServletRequest request){
-        //get user logeed by token from client
-        UserEntity userRequest = getUserByEmail(request);
-        postApplyDto.setUserEntity(userRequest);
-        PostApplyDto postApplyDtoResponse = postApplyService.applyPost(postApplyDto);
-        return new ResponseEntity<>(postApplyDtoResponse,HttpStatus.CREATED);
     }
 
     @GetMapping("publications")
@@ -98,8 +85,20 @@ public class UserController {
     public List<AnimalDto> getAllAnimals(HttpServletRequest request){
         //get user logeed by token from client
         UserEntity userRequest = getUserByEmail(request);
-        System.out.println(animalService.getAllAnimalByUser(userRequest));
         return animalService.getAllAnimalByUser(userRequest);
+    }
+
+    @PostMapping("apply")
+    public PostApplyDto applyToPublication(@RequestBody PostApplyDto postApplyDto){
+//        System.out.println("animal id : "+postApplyDto.getAnimalEntity().getId());
+//        System.out.println("user : "+postApplyDto.getUserEntityList().get(0).getId());
+//        return null;
+        return postApplyService.applyToPost(postApplyDto);
+    }
+
+    @GetMapping("get")
+    public List<PostApplyEntity> getAll(){
+        return postApplyService.postAppl();
     }
 
 

@@ -3,6 +3,8 @@ package com.example.api.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name = "postapply")
 @Data
@@ -12,10 +14,10 @@ public class PostApplyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private PublicationEntity publicationEntity;
+    @Column(nullable = false)
+    private boolean isAdopted = false;
 
-    @ManyToOne
-    private UserEntity userEntity;
+    @OneToMany
+    private List<UserEntity> userEntities;
 
 }

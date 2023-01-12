@@ -21,19 +21,35 @@ export class PublicationComponent {
   }
 
   ngOnInit(): void {
+    this.getPublications();
+  }
+
+  comment(id:number){
+    this.publicationsService.createComment(this.commentForm.value.message || '',id).subscribe({
+      next:(res:any) => {
+        this.getPublications();
+        this.commentForm.reset();
+        this.router.navigate(['/']);
+      },
+      error:error => (alert(error))
+    })
+  }
+
+  getPublications(){
     this.publicationsService.getPublications().subscribe(res=>{
       this.publication = res;
       console.log(this.publication);
     })
   }
 
-  comment(id:number){
-    this.publicationsService.createComment(this.commentForm.value.message || '',id).subscribe({
-      next:(res:any) => {
-        this.router.navigate(['/']);
-      },
-      error:error => (alert(error))
-    })
+  apply(idPub:string){
+    // this.publicationsService.applyPost(idPub).subscribe({
+    //   next:(res:any) => {
+    //     alert("apply")
+    //   },
+    //   error:error => (alert("not apply"))
+    // })
+    console.log(idPub);
   }
 
 }
